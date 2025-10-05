@@ -41,7 +41,7 @@ namespace Ecommerce.Controllers
                 Persons = persons,
                 Count = persons.Count
             }; 
-            return View(viewName: "PersonalInformation");
+            return View(personVm);
         }
 
 
