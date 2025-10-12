@@ -60,7 +60,8 @@ namespace Ecommerce.Areas.Customer.Controllers
             ViewBag.Brands = brands.AsEnumerable();
             
 
-            ViewBag.TotalPages = Math.Ceiling(products.Count() / 8.0);   
+            ViewBag.TotalPages = Math.Ceiling(products.Count() / 8.0);
+            ViewBag.CurrentPage = page;
 
             products = products.Skip((page -1)*8).Take(8);
 

@@ -27,7 +27,7 @@ namespace Ecommerce
             app.MapStaticAssets();
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{area=Admin}/{controller=Home}/{action=Index}/{id?}")
+                pattern: "{area=Admin}/{controller=Brand}/{action=Index}/{id?}")
                 .WithStaticAssets();
 
             app.Run();

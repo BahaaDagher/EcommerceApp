@@ -20,6 +20,7 @@ namespace Ecommerce.DataAccess
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<ProductSubImage>().HasKey(p=>new { p.ProductId , p.Img}); 
             modelBuilder.Entity<ProductColor>().HasKey(p=>new { p.ProductId , p.Color}); 
+            modelBuilder.Entity<Brand>().Property(b=>b.Img).HasDefaultValue("defaultImg.png"); 
         }
     }
 }

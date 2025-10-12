@@ -9,5 +9,10 @@ namespace Ecommerce.Areas.Admin.Controllers
         {
             return View();
         }
+        public ViewResult NotFoundPage()
+        {
+            return View();
+        }
     }
 }
+//means: “Open a writable stream to a new file at that path.”
