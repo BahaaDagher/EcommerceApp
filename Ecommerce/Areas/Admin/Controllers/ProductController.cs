@@ -175,7 +175,7 @@ namespace Ecommerce.Areas.Admin.Controllers
         }
         public IActionResult Delete(int id)
         {
-            var product = _context.Products.FirstOrDefault(c => c.Id == id);
+            var product = _context.Products.Include(p=>p.ProductSubImages).FirstOrDefault(c => c.Id == id);
             if (product is null)
                 return RedirectToAction("NotFoundPage", "Home");
 
@@ -185,7 +185,17 @@ namespace Ecommerce.Areas.Admin.Controllers
             {
                 System.IO.File.Delete(oldPath);
             }
-
+            if (product.ProductSubImages.Count > 0 )
+            {
+                foreach (var img in product.ProductSubImages)
+                {
+                    var subImgPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\Images\\product_sub_images", img.Img);
+                    if (System.IO.File.Exists(subImgPath))
+                    {
+                        System.IO.File.Delete(subImgPath);
+                    }
+                }
+            }
             _context.Products.Remove(product);
             _context.SaveChanges();
             return RedirectToAction(nameof(Index));
