@@ -19,6 +19,9 @@ namespace Ecommerce.Models
         public Category Category { get; set; }
         public int BrandId { get; set; }
         public Brand Brand { get; set; }
+        public ICollection<ProductSubImage> ProductSubImages { get; set; }
+        public ICollection<ProductColor> ProductColors { get; set; }
+
 
     }
 }
