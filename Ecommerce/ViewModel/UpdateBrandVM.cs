@@ -1,8 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Ecommerce.Validations;
+using System.ComponentModel.DataAnnotations;
 
-namespace Ecommerce.Models
+namespace Ecommerce.ViewModel
 {
-    public class Brand
+    public class UpdateBrandVM
     {
         public int Id { get; set; }
         [Required(ErrorMessage = "هذا الحقل مطلوب")]
@@ -13,6 +14,8 @@ namespace Ecommerce.Models
         public string Description { get; set; }
         public bool Status { get; set; }
         public string Img { get; set; } = "defaultImg.png";
-        public ICollection<Product>? Products { get; set; }
+
+        [AllowedExtentions(new[] { ".png" ,".jpg" , ".jpeg" , ".gif"})]
+        public IFormFile? FormImg { get; set; }
     }
 }

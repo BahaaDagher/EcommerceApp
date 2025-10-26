@@ -4,6 +4,7 @@
 <div class="container">
     <div class="row mb-3 align-items-center my-3">
         <div class="col-md-6">
+             <div>@Context.Request.Cookies["Theme"]</div> 
             <h2 class="display-6">All Brands</h2>
         </div>
         <div class="col-md-6 text-md-end text-start mt-2 mt-md-0">
@@ -11,7 +12,7 @@
         </div>
     </div>
 
-    <div class="row">  
+    <div class="row">
         <div class="col-12">
 
             <table class="table table-hover">
@@ -26,14 +27,14 @@
                 </thead>
                 <tbody>
 
-                    @foreach(var item in Model)
+                    @foreach (var item in Model)
                     {
                         <tr>
                             <th scope="row">@item.Id</th>
                             <td>@item.Name</td>
                             <td>
 
-                            <img src = "~/Images/@item.Img" width="100"/>
+                                <img src="~/Images/@item.Img" width="100" />
                             </td>
                             <td>
                                 @* @if(item.Status)
@@ -100,4 +101,12 @@
 </script>
 
 
-
+@section Scripts {
+    @if (TempData["Success"] is not null)
+    {
+        <script>
+            toastr.success('@TempData["Success"]')
+        </script>
+    }
+    
+}

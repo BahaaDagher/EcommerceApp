@@ -14,14 +14,17 @@
                 <input class="form-control"  hidden name="Id" value="@Model.Id">
                 <div class="mb-3">
                     <label for="name" class="form-label">Name</label>
-                    <input class="form-control" name="Name" value="@Model.Name">
+                    <input class="form-control" name="Name" value="@Model.Name" asp-for="Name">
+                    <span class="text-danger" asp-validation-for="Name"></span>
                 </div>
                 <div class="mb-3">
                     <label for="description" class="form-label">Description</label>
                     <div class="form-floating">
-                        <textarea class="form-control" placeholder="Leave a description here" style="height: 100px" name="Description">@Model.Description
+                        <textarea class="form-control" placeholder="Leave a description here" style="height: 100px" name="Description" asp-for="Description">@Model.Description
                         </textarea>
                         <label for="description">You Description Here...</label>
+                        <span class="text-danger" asp-validation-for="Description"></span>
+
                     </div>
                 </div>
                 <div class="mb-3">
@@ -45,3 +48,6 @@
         </div>
     </div>
 </div>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

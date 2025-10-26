@@ -1,5 +1,4 @@
-﻿
-@model Brand
+﻿@model UpdateBrandVM
 
 <div class="container">
     <div class="row mb-3 align-items-center my-3">
@@ -14,11 +13,12 @@
                 <input class="form-control"  hidden name="Id" value="@Model.Id">
                 <div class="mb-3">
                     <label for="name" class="form-label">Name</label>
-                    <input class="form-control" name="Name" value="@Model.Name">
+                    <input class="form-control" asp-for="Name">
+                    <span class="text-danger" asp-validation-for="Name"></span>
                 </div>
                 <div class="mb-3">
                     <label for="Img" class="form-label">Img</label>
-                    <input type="file" class="form-control" name="img" accept="image/*" onchange="previewImage(event)">
+                    <input type="file" class="form-control" name="FormImg" accept="image/*" onchange="previewImage(event)">
                 </div>
 
                 <div class="mb-3">
@@ -30,9 +30,11 @@
                 <div class="mb-3">
                     <label for="description" class="form-label">Description</label>
                     <div class="form-floating">
-                        <textarea class="form-control" placeholder="Leave a description here" style="height: 100px" name="Description">@Model.Description
+                        <textarea class="form-control" placeholder="Leave a description here" style="height: 100px" asp-for="Description">@Model.Description
                         </textarea>
                         <label for="description">You Description Here...</label>
+                        <span class="text-danger" asp-validation-for="Description"></span>
+
                     </div>
                 </div>
                 <div class="mb-3">
@@ -72,3 +74,10 @@
         }
     }
 </script>
+
+@section Scripts {
+
+    <partial name="_ValidationScriptsPartial" />
+}
+
+
