@@ -1,6 +1,7 @@
 ﻿using Mapster;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Threading.Tasks;
 using System.Xml.Schema;
 
 namespace Ecommerce.Areas.Admin.Controllers
@@ -8,10 +9,13 @@ namespace Ecommerce.Areas.Admin.Controllers
     [Area("Admin")]
     public class BrandController : Controller
     {
-        ApplicationDbContext _context = new ApplicationDbContext();
-        public ViewResult Index()
+        //ApplicationDbContext _context = new ApplicationDbContext();
+        Repository<Brand> _brandRepository = new Repository<Brand>();
+        public async Task<IActionResult> Index()
         {
-            var brands = _context.Brands.AsQueryable();
+            //var brands = _context.Brands.AsQueryable();
+            var brands = await _brandRepository.GetAsync();
+
             return View(brands.AsEnumerable());
         }
         [HttpGet]
@@ -20,7 +24,7 @@ namespace Ecommerce.Areas.Admin.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult Create(CreateBrandVM CreateBrandVM)
+        public async Task<IActionResult> Create(CreateBrandVM CreateBrandVM)
         {
             if (!ModelState.IsValid)
             {
@@ -48,8 +52,10 @@ namespace Ecommerce.Areas.Admin.Controllers
                     brand.Img = fileName;
                 }
             }
-            _context.Brands.Add(brand);
-            _context.SaveChanges();
+            //_context.Brands.Add(brand);
+            //_context.SaveChanges();
+            await _brandRepository.AddAsync(brand); 
+            await _brandRepository.CommitAsync();
             Response.Cookies.Append("Theme", "Dark", new CookieOptions()
             {
                 Expires = DateTime.Now.AddDays(7)
@@ -58,9 +64,10 @@ namespace Ecommerce.Areas.Admin.Controllers
             return RedirectToAction(nameof(Index));
         }
         [HttpGet]
-        public IActionResult Update(int id)
+        public async Task<IActionResult> Update(int id)
         {
-            var brand = _context.Brands.FirstOrDefault(c=>c.Id == id);
+            //var brand = _context.Brands.FirstOrDefault(c=>c.Id == id);
+            var brand = await _brandRepository.GetOneAsync(c => c.Id == id); 
             if (brand is null)
                 return RedirectToAction("NotFoundPage" , "Home" );
             //var updateBrandVM = new UpdateBrandVM()
@@ -75,9 +82,10 @@ namespace Ecommerce.Areas.Admin.Controllers
             return View(updateBrandVM);
         }
         [HttpPost]
-        public IActionResult Update(UpdateBrandVM UpdateBrandVM)
+        public async Task<IActionResult> Update(UpdateBrandVM UpdateBrandVM)
         {
-            var brandInDB = _context.Brands.AsNoTracking().FirstOrDefault(c => c.Id == UpdateBrandVM.Id);
+            //var brandInDB = _context.Brands.AsNoTracking().FirstOrDefault(c => c.Id == UpdateBrandVM.Id);
+            var brandInDB = await _brandRepository.GetOneAsync(c => c.Id == UpdateBrandVM.Id, trackd : false );
             if (!ModelState.IsValid)
             {
                 UpdateBrandVM.Img = brandInDB.Img; 
@@ -114,13 +122,16 @@ namespace Ecommerce.Areas.Admin.Controllers
             {
                 brand.Img = brandInDB.Img;
             }
-                _context.Brands.Update(brand);
-            _context.SaveChanges();
+            //_context.Brands.Update(brand);
+            //_context.SaveChanges();
+            _brandRepository.Update( brand );
+            await _brandRepository.CommitAsync(); 
             return RedirectToAction(nameof(Index));
         }
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            var brand = _context.Brands.FirstOrDefault(c => c.Id == id);
+            //var brand = _context.Brands.FirstOrDefault(c => c.Id == id);
+            var brand = await _brandRepository.GetOneAsync(c => c.Id == id);
             if (brand is null)
                 return RedirectToAction("NotFoundPage", "Home");
 
@@ -131,8 +142,10 @@ namespace Ecommerce.Areas.Admin.Controllers
                 System.IO.File.Delete(oldPath);
             }
 
-            _context.Brands.Remove(brand);
-            _context.SaveChanges();
+            //_context.Brands.Remove(brand);
+            //_context.SaveChanges();
+            _brandRepository.Delete(brand);
+            await _brandRepository.CommitAsync(); 
             return RedirectToAction(nameof(Index));
         }
     }

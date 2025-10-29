@@ -3,8 +3,8 @@
     public class ProductVM
     {
 
-        public ICollection<Category> Categories { get; set; }
-        public ICollection<Brand> Brands { get; set; }
+        public IEnumerable<Category> Categories { get; set; }
+        public IEnumerable<Brand> Brands { get; set; }
         public Product? Product { get; set; } 
     }
 }
