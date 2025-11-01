@@ -172,7 +172,7 @@ namespace Ecommerce.Areas.Admin.Controllers
                         //_context.ProductSubImages.Add(productSubImage);
                         await _productSubImageRepository.AddAsync(productSubImage);
                         //_context.SaveChanges();
-                        await _productRepository.CommitAsync();
+                        await _productSubImageRepository.CommitAsync();
 
                     }
                 }
@@ -198,7 +198,7 @@ namespace Ecommerce.Areas.Admin.Controllers
                     await _productColorRepository.AddAsync(productColor);
                 }
                 //_context.SaveChanges();
-                await _productRepository.CommitAsync();
+                await _productColorRepository.CommitAsync();
 
             }
             //_context.Products.Update(product);
@@ -248,7 +248,7 @@ namespace Ecommerce.Areas.Admin.Controllers
                 return RedirectToAction("NotFoundPage", "Home");
             //_context.ProductSubImages.Remove(productSubImage);
             _productSubImageRepository.Delete(productSubImage);
-
+            await _productSubImageRepository.CommitAsync();
             var oldPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\Images\\product_sub_images", productSubImage.Img);
             if (System.IO.File.Exists(oldPath))
             {
