@@ -1,8 +1,12 @@
 ﻿namespace Ecommerce.Repos
 {
-    public class ProductRepository :Repository<Product>
+    public class ProductRepository :Repository<Product> , IProductRepository
     {
-        ApplicationDbContext _context = new ApplicationDbContext();
+        private readonly ApplicationDbContext _context; //= new ApplicationDbContext();
+        public ProductRepository(ApplicationDbContext context) : base(context)
+        {
+            _context = context;
+        }
 
         public async Task  AddRange(IEnumerable<Product> products ,CancellationToken cancellationToken = default)
         {

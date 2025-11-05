@@ -4,12 +4,13 @@ using System.Linq.Expressions;
 
 namespace Ecommerce.Repos
 {
-    public class Repository<T> where T : class
+    public class Repository<T> : IRepository<T>  where T : class 
     {
-        private readonly ApplicationDbContext _context = new ApplicationDbContext();
+        private readonly ApplicationDbContext _context;// = new ApplicationDbContext();
         private readonly DbSet<T> _dbSet; 
-        public Repository ()
+        public Repository (ApplicationDbContext context)
         {
+            _context = context; 
             _dbSet = _context.Set<T>();
         }
 

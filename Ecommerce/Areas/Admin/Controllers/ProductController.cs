@@ -9,12 +9,22 @@ namespace Ecommerce.Areas.Admin.Controllers
     [Area("Admin")]
     public class ProductController : Controller
     {
-        //ApplicationDbContext _context = new ApplicationDbContext();
-        ProductRepository _productRepository = new ProductRepository();
-        Repository<Category> _categoryRepository = new Repository<Category>();
-        Repository<Brand> _brandRepository = new Repository<Brand>();
-        Repository<ProductSubImage> _productSubImageRepository = new Repository<ProductSubImage>(); 
-        Repository<ProductColor> _productColorRepository = new Repository<ProductColor>(); 
+        ApplicationDbContext _context;// = new ApplicationDbContext();
+        IProductRepository _productRepository;// = new ProductRepository();
+        IRepository<Category> _categoryRepository;// = new Repository<Category>();
+        IRepository<Brand> _brandRepository;// = new Repository<Brand>();
+        IRepository<ProductSubImage> _productSubImageRepository;// = new Repository<ProductSubImage>(); 
+        IRepository<ProductColor> _productColorRepository;// = new Repository<ProductColor>(); 
+
+        public ProductController(ApplicationDbContext context, IProductRepository productRepository, IRepository<Category> categoryRepository, IRepository<Brand> brandRepository, IRepository<ProductSubImage> productSubImageRepository, IRepository<ProductColor> productColorRepository)
+        {
+            _context = context;
+            _productRepository = productRepository;
+            _categoryRepository = categoryRepository;
+            _brandRepository = brandRepository;
+            _productSubImageRepository = productSubImageRepository;
+            _productColorRepository = productColorRepository;
+        }
 
         public async Task<IActionResult> Index()
         {

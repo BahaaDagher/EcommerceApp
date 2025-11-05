@@ -9,7 +9,13 @@ namespace Ecommerce.Areas.Admin.Controllers
     public class CategoryController : Controller
     {
         //ApplicationDbContext _context = new ApplicationDbContext();
-        Repository<Category> _categoryRepository = new Repository<Category>(); 
+        //IRepository<Category> _categoryRepository = new Repository<Category>(); 
+        IRepository<Category> _categoryRepository; // = new Repository<Category>(); 
+
+        public CategoryController(IRepository<Category> categoryRepository)
+        {
+            _categoryRepository = categoryRepository; 
+        }
         public async Task<IActionResult> Index(CancellationToken cancellationToken )
         {
             //var categories = _context.Categories.AsQueryable();

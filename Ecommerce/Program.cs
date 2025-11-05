@@ -1,5 +1,7 @@
+using Microsoft.EntityFrameworkCore;
+
 namespace Ecommerce
-{
+{ 
     public class Program
     {
         public static void Main(string[] args)
@@ -8,6 +10,14 @@ namespace Ecommerce
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+            var connectionString =
+                builder.Configuration.GetConnectionString("DefaultConnection")
+                    ?? throw new InvalidOperationException("Connection string"
+                    + "'DefaultConnection' not found.");
+
+            //AppConfiguration.Config(builder.Services, connectionString);
+
+            builder.Services.Config(connectionString); 
 
             var app = builder.Build();
 

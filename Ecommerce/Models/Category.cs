@@ -12,7 +12,7 @@ namespace Ecommerce.Models
         //[MaxLength(20)]
         [CustomLength(3,20)]
         public string Name { get; set; }
-        [MaxLength(250)]
+        [MaxLength(50)]
         public string Description { get; set; }
         public bool  Status { get; set; }
         public ICollection<Product>? Products { get; set; } 

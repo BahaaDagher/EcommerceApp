@@ -10,7 +10,13 @@ namespace Ecommerce.Areas.Admin.Controllers
     public class BrandController : Controller
     {
         //ApplicationDbContext _context = new ApplicationDbContext();
-        Repository<Brand> _brandRepository = new Repository<Brand>();
+        IRepository<Brand> _brandRepository; //= new Repository<Brand>();
+
+        public BrandController(IRepository<Brand> brandRepository)
+        {
+            _brandRepository = brandRepository;
+        }
+
         public async Task<IActionResult> Index()
         {
             //var brands = _context.Brands.AsQueryable();
