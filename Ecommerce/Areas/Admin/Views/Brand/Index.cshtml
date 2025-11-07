@@ -102,11 +102,5 @@
 
 
 @section Scripts {
-    @if (TempData["Success"] is not null)
-    {
-        <script>
-            toastr.success('@TempData["Success"]')
-        </script>
-    }
-    
+    <partial name="_NotificationPartial" />
 }

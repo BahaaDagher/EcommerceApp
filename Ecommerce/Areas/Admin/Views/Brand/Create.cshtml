@@ -44,12 +44,7 @@
 @section Scripts {
 
     @* <partial name="_ValidationScriptsPartial" /> *@
-    @if (TempData["Error"] is not null )
-    {
-        <script>
-            toastr.error('@TempData["Error"]')
-        </script>
-    }
+    <partial name="_NotificationPartial" />
 }
 
 
