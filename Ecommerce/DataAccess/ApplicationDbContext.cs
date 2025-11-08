@@ -1,6 +1,7 @@
 ﻿using Ecommerce.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Ecommerce.ViewModel;
 
 namespace Ecommerce.DataAccess
 {
@@ -27,5 +28,8 @@ namespace Ecommerce.DataAccess
             modelBuilder.Entity<ProductColor>().HasKey(p=>new { p.ProductId , p.Color}); 
             modelBuilder.Entity<Brand>().Property(b=>b.Img).HasDefaultValue("defaultImg.png"); 
         }
+        public DbSet<Ecommerce.ViewModel.RegisterVM> RegisterVM { get; set; } = default!;
+        public DbSet<Ecommerce.ViewModel.LoginVm> LoginVm { get; set; } = default!;
+        public DbSet<Ecommerce.ViewModel.ResendEmailConfirmationVM> ResendEmailConfirmationVM { get; set; } = default!;
     }
 }
