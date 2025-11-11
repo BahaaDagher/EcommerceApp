@@ -128,7 +128,7 @@ namespace Ecommerce.Areas.Identity.Controllers
                 ModelState.AddModelError(string.Empty, "Invalid UserName Or Email");
                 return View(resendEmailConfirmationVM);
             }
-            if (!user.EmailConfirmed)
+            if (user.EmailConfirmed)
             {
                 ModelState.AddModelError(string.Empty, "Email is already confirmed");
                 return View(resendEmailConfirmationVM);
