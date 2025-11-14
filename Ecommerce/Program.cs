@@ -1,4 +1,7 @@
+using Ecommerce.Configurations;
+using Ecommerce.Utilities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Internal;
 
 namespace Ecommerce
 { 
@@ -17,9 +20,16 @@ namespace Ecommerce
 
             //AppConfiguration.Config(builder.Services, connectionString);
 
-            builder.Services.Config(connectionString); 
+            builder.Services.Config(connectionString);
+            builder.Services.RegisterMapsterConfig();
 
             var app = builder.Build();
+
+            using (var scope = app.Services.CreateScope())
+            {
+                var dbInitializr = scope.ServiceProvider.GetRequiredService<IDBInitializr>();
+                dbInitializr.Initialize();
+            } 
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
@@ -37,7 +47,7 @@ namespace Ecommerce
             app.MapStaticAssets();
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{area=Identity}/{controller=Account}/{action=Register}/{id?}")
+                pattern: "{area=Customer}/{controller=Home}/{action=Index}/{id?}")
                 .WithStaticAssets();
 
             app.Run();

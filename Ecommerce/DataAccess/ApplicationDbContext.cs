@@ -24,6 +24,7 @@ namespace Ecommerce.DataAccess
         //}
         override protected void OnModelCreating(ModelBuilder modelBuilder)
         {
+
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<ProductSubImage>().HasKey(p=>new { p.ProductId , p.Img}); 
             modelBuilder.Entity<ProductColor>().HasKey(p=>new { p.ProductId , p.Color}); 

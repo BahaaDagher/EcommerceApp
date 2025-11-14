@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Category>
+﻿@model IEnumerable<ApplicationUser>
 
 
 <div class="container">
@@ -11,55 +11,39 @@
         </div>
     </div>
 
-    <div class="row">  
+    <div class="row">
         <div class="col-12">
 
             <table class="table table-hover">
                 <thead>
                     <tr>
                         <th scope="col">#</th>
-                        <th scope="col">Name</th>
-                        <th scope="col">Status</th>
-                        <th scope="col">Actions</th>
+                        <th scope="col">Full Name</th>
+                        <th scope="col">User Name</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Lock UnLock</th>
                     </tr>
                 </thead>
                 <tbody>
 
-                    @foreach(var item in Model)
+                    @foreach (var item in Model)
                     {
                         <tr>
                             <th scope="row">@item.Id</th>
-                            <td>@item.Name</td>
+                            <th scope="row">@item.FirstName  @item.LastName</th>
+                            <th scope="row">@item.UserName</th>
+                            <td scope="row">@item.Email</td>
                             <td>
-                                @* @if(item.Status)
+                                @if (item.LockoutEnd != null && item.LockoutEnd > DateTime.UtcNow)
                                 {
-                                    <span class="badge text-bg-success">
-                                        Active
-                                    </span>
+                                    <a href="/Admin/User/LockUnLock/@item.Id" type="button" class="btn btn-success">Unlock</a>
                                 }
                                 else
                                 {
-                                    <span class="badge text-bg-danger">
-                                        InActive
-                                    </span>
-                                } *@
-                                <span class="badge text-bg-@(item.Status ? "success" : "danger") ">
-                                    @(item.Status ? "Active" : "InActive")
-                                </span>
+                                    <a href="/Admin/User/LockUnLock/@item.Id" type="button" class="btn btn-danger">Lock</a>
+                                }
+
                             </td>
-                            @if (User.IsInRole(SD.SUPER_ADMIN_ROLE) || User.IsInRole(SD.ADMIN_ROLE))
-                            {
-                                <td>
-                                    <a href="/Admin/Category/Update/@item.Id" type="button" class="btn btn-warning">Edit</a>
-                                    <a href="/Admin/Category/Delete/@item.Id" class="btn btn-danger btn-delete">Delete</a>
-                                </td>
-                            }
-                            else
-                            {
-                                <td>
-                                    No Actions
-                                </td>
-                            }
                         </tr>
                     }
                 </tbody>
@@ -102,6 +86,12 @@
         });
     });
 </script>
+
+
+@section Scripts {
+
+    <partial name="_NotificationPartial" />
+}
 
 
 

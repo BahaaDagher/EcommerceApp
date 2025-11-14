@@ -268,5 +268,18 @@ namespace Ecommerce.Areas.Identity.Controllers
 
         }
 
+        public async Task<IActionResult> Logout()
+        {
+            await _signInManager.SignOutAsync();
+            return RedirectToAction("Index" , "Home" , new { area = "Customer" });
+        }
+        [HttpGet]
+        public IActionResult AccessDenied(string returnUrl = null)
+        {
+            ViewBag.ReturnUrl = returnUrl;
+            return View();
+        }
+
+
     }
 }

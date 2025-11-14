@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Ecommerce.Utilities;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Xml.Schema;
@@ -6,6 +8,8 @@ using System.Xml.Schema;
 namespace Ecommerce.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = $"{SD.SUPER_ADMIN_ROLE} ,{SD.ADMIN_ROLE} ,{SD.EMPLOYEE_ROLE} ")]
+
     public class CategoryController : Controller
     {
         //ApplicationDbContext _context = new ApplicationDbContext();
@@ -46,6 +50,8 @@ namespace Ecommerce.Areas.Admin.Controllers
             await _categoryRepository.CommitAsync(cancellationToken);
             return RedirectToAction(nameof(Index));
         }
+        [Authorize(Roles = $"{SD.SUPER_ADMIN_ROLE} ,{SD.ADMIN_ROLE} ")]
+
         [HttpGet]
         public async Task<IActionResult> Update(int id  ,CancellationToken  cancellationToken)
         {
@@ -55,6 +61,8 @@ namespace Ecommerce.Areas.Admin.Controllers
                 return RedirectToAction("NotFoundPage" , "Home" );
             return View(category);
         }
+        [Authorize(Roles = $"{SD.SUPER_ADMIN_ROLE} ,{SD.ADMIN_ROLE} ")]
+
         [HttpPost]
         public async Task<IActionResult> Update(Category category, CancellationToken cancellationToken )
         {
@@ -68,6 +76,8 @@ namespace Ecommerce.Areas.Admin.Controllers
             await _categoryRepository.CommitAsync(cancellationToken: cancellationToken ); 
             return RedirectToAction(nameof(Index));
         }
+        [Authorize(Roles = $"{SD.SUPER_ADMIN_ROLE} ,{SD.ADMIN_ROLE} ")]
+
         public async Task<IActionResult> Delete(int id ,CancellationToken cancellationToken )
         {
             //var category = _context.Categories.FirstOrDefault(c => c.Id == id);

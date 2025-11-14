@@ -1,4 +1,6 @@
-﻿using Mapster;
+﻿using Ecommerce.Utilities;
+using Mapster;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
@@ -7,6 +9,8 @@ using System.Xml.Schema;
 namespace Ecommerce.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = $"{SD.SUPER_ADMIN_ROLE} ,{SD.ADMIN_ROLE} ,{SD.EMPLOYEE_ROLE} ")]
+
     public class BrandController : Controller
     {
         //ApplicationDbContext _context = new ApplicationDbContext();

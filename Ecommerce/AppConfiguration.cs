@@ -27,6 +27,12 @@ namespace Ecommerce
                 .AddDefaultTokenProviders()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.LoginPath = $"/Identity/Account/Login";
+                options.AccessDeniedPath = $"/Identity/Account/AccessDenied";
+            });
+
             services.AddTransient<IEmailSender, EmailSender>();
             services.AddScoped<IRepository<Category>, Repository<Category>>();
             //services.AddSingleton<IRepository<Category>, Repository<Category>>();
@@ -36,6 +42,7 @@ namespace Ecommerce
             services.AddScoped<IRepository<ProductColor>, Repository<ProductColor>>();
             services.AddScoped<IRepository<ApplicationUserOTP>, Repository<ApplicationUserOTP>>();
             services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddScoped<IDBInitializr, DBInitializr>();
         }
     }
 }

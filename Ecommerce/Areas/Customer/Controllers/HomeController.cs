@@ -2,12 +2,14 @@ using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using Ecommerce.DataAccess;
 using Ecommerce.ViewModel;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace Ecommerce.Areas.Customer.Controllers
 {
     [Area("Customer")]
+    [Authorize]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
