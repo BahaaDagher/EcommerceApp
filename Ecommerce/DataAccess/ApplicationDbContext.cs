@@ -16,6 +16,7 @@ namespace Ecommerce.DataAccess
         public DbSet<Brand> Brands { get; set; }
         public DbSet<ProductSubImage> ProductSubImages { get; set; }
         public DbSet<ProductColor> ProductColors { get; set; }
+        public DbSet<ApplicationUserOTP> ApplicationUserOTPs { get; set; }
 
         //override protected void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         //{
@@ -28,8 +29,6 @@ namespace Ecommerce.DataAccess
             modelBuilder.Entity<ProductColor>().HasKey(p=>new { p.ProductId , p.Color}); 
             modelBuilder.Entity<Brand>().Property(b=>b.Img).HasDefaultValue("defaultImg.png"); 
         }
-        public DbSet<Ecommerce.ViewModel.RegisterVM> RegisterVM { get; set; } = default!;
-        public DbSet<Ecommerce.ViewModel.LoginVm> LoginVm { get; set; } = default!;
-        public DbSet<Ecommerce.ViewModel.ResendEmailConfirmationVM> ResendEmailConfirmationVM { get; set; } = default!;
+        public DbSet<Ecommerce.ViewModel.ValidateOTPVM> ValidateOTPVM { get; set; } = default!;
     }
 }

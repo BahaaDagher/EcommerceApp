@@ -12,11 +12,11 @@ namespace Ecommerce.Utilities
             {
                 EnableSsl = true,
                 UseDefaultCredentials = false,
-                Credentials = new NetworkCredential("student.test@gmail.com", "write your app password 😃")
+                Credentials = new NetworkCredential("bahaa.test99@gmail.com", "nfxl rbcy ithe gvrk")
             };
 
             return client.SendMailAsync(
-                new MailMessage(from: "student.test99@gmail.com",
+                new MailMessage(from: "bahaa.test99@gmail.com",
                                 to: email,
                                 subject,
                                 htmlMessage

@@ -34,6 +34,7 @@ namespace Ecommerce
             services.AddScoped<IRepository<Brand>, Repository<Brand>>();
             services.AddScoped<IRepository<ProductSubImage>, Repository<ProductSubImage>>();
             services.AddScoped<IRepository<ProductColor>, Repository<ProductColor>>();
+            services.AddScoped<IRepository<ApplicationUserOTP>, Repository<ApplicationUserOTP>>();
             services.AddScoped<IProductRepository, ProductRepository>();
         }
     }
